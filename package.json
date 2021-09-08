@@ -1,0 +1,53 @@
+{
+  "name": "cise_ass1a_worksheet4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "app": "nodemon app.js",
+    "lint": "eslint './src/**/*.{js,jsx}'",
+    "lint:fix": "eslint './src/**/*.{js,jsx}' --fix",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix cise_ass1a_worksheet3 && npm run build--prefix cise_ass1a_worksheet3",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/S8enson/cise_ass1a_worksheet4.git"
+  },
+  "author": "Sam Benson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/S8enson/cise_ass1a_worksheet4/issues"
+  },
+  "homepage": "https://github.com/S8enson/cise_ass1a_worksheet4#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.5",
+    "react-hook-form": "^7.12.2",
+    "validation": "^0.0.1"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  }
+}
