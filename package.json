@@ -1,11 +1,11 @@
 {
-  "name": "mernboilerplate",
-  "version": "1.0.2",
+  "name": "SEPER",
+  "version": "1.0",
   "engines": {
     "node": "16.x",
     "yarn": "1.x"
   },
-  "description": "This is a boilerplate repo for creating new mern stack apps",
+  "description": "MERN app to evaluate SE academia",
   "main": "server.js",
   "scripts": {
     "test": "jest",
@@ -15,7 +15,11 @@
     "mern": "concurrently -n 'server,client' -c 'yellow,blue' \"yarn run dev\" \"yarn run client\"",
     "heroku-postbuild": "cd client && yarn install && yarn run build"
   },
-  "author": "Gaurav Walia",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/S8enson/SEPER.git"
+  },
+  "author": "Sam Benson",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
