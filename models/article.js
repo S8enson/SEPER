@@ -9,7 +9,8 @@ const ArticleSchema = new Schema({
   pubyear: Number,
   doi: String,
   claim: String,
-  evidence: String
+  evidence: String,
+  practice: String
 });
 
 const Article = mongoose.model('article',ArticleSchema);
