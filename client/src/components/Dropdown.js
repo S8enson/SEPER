@@ -7,11 +7,12 @@ import SEPractices from "../dummydata/SEPractices"
   const Dropdown = () => {
     return (
         <div>
-             <select>
+             <select onchange="practiceSelect()">
              <option value="">Select an SE Practice </option>
                 {optionItems}
              </select>
          </div>
+         
 
     )
   }

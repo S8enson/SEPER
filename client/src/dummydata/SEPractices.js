@@ -1,7 +1,7 @@
 const SEPractices = [
     {
       id: 1,
-      practice: 'TDD',
+      practice: 'Test Driven Development',
     },
     {
       id: 2,
