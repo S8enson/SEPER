@@ -4,10 +4,18 @@ import SEPractices from "../dummydata/SEPractices"
   const optionItems = SEPractices.map((SEPractice) =>
                 <option key={SEPractice.practice}>{SEPractice.practice}</option>
             );
-  const Dropdown = () => {
-    return (
+  class Dropdown extends React.Component{
+  //   refresh = () => {
+  //     this.setState((state, props) => {
+  //         return {
+  //           date: new Date()
+  //         };
+  //     });
+  // };
+    render(){
+      return (
         <div>
-             <select onchange="practiceSelect()">
+             <select id="practiceSelect">
              <option value="">Select an SE Practice </option>
                 {optionItems}
              </select>
@@ -15,5 +23,7 @@ import SEPractices from "../dummydata/SEPractices"
          
 
     )
+      }
   }
+
   export default Dropdown;
