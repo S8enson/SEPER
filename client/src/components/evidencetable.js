@@ -14,6 +14,7 @@ const Table = ({ columns, data }) => {
     // which has only the rows for the active page
 
     // The rest of these things are super handy, too ;)
+    allColumns,
     canPreviousPage,
     canNextPage,
     pageOptions,
@@ -37,12 +38,12 @@ const Table = ({ columns, data }) => {
   // Render Data Table UI
   return (
     <>
-      {columns.map((column) => {
+      {allColumns.map((column) => {
         return (
           <div key={column.id}>
             <label style={{ fontFamily: "sans-serif" }}>
-              <input type="checkbox" />
-              {column.Header}
+              <input type="checkbox" {...column.getToggleHiddenProps()} />
+              {column.id}
             </label>
           </div>
         );
