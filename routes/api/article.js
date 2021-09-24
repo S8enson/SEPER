@@ -25,7 +25,9 @@ router.get('/', async (req, res) => {
 router.get('/:practice', async (req, res) => {
     try {
       const wantedPractice = req.params.practice.replaceAll("&", " ")
-      const article = await Article.find({'practice': wantedPractice})//useful for specific columns => select('title authors source pubyear doi claim evidence')
+      const wantedPractice2 = wantedPractice.replace(":", "")
+      //res.status(500).json( {wantedPractice2} )
+      const article = await Article.find({'practice': wantedPractice2}) //.select('title authors source pubyear doi claim evidence')
       res.json(article)
     } catch (err) {
       res.status(500).json({ message: err.message })
