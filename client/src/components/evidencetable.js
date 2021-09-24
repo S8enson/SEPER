@@ -38,16 +38,52 @@ const Table = ({ columns, data }) => {
   // Render Data Table UI
   return (
     <>
-      {allColumns.map((column) => {
-        return (
-          <div key={column.id}>
-            <label style={{ fontFamily: "sans-serif" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+        }}>
+        {allColumns.map((column) => {
+          let checkboxLabel;
+          switch (column.id) {
+            case "title":
+              checkboxLabel = "Title";
+              break;
+            case "authors":
+              checkboxLabel = "Authors";
+              break;
+            case "source":
+              checkboxLabel = "Source";
+              break;
+            case "pubyear":
+              checkboxLabel = "Pub. Year";
+              break;
+            case "doi":
+              checkboxLabel = "DOI";
+              break;
+            case "claim":
+              checkboxLabel = "Claimed Benefit";
+              break;
+            case "evidence":
+              checkboxLabel = "Level of Evidence";
+              break;
+            case "practice":
+              checkboxLabel = "Practice";
+              break;
+            default:
+              checkboxLabel = "Something is wrong???";
+              console.error("Something wrong with your switch Liam");
+          }
+          return (
+            <label
+              key={column.id}
+              style={{ fontFamily: "sans-serif", marginRight: "20px" }}>
               <input type="checkbox" {...column.getToggleHiddenProps()} />
-              {column.id}
+              {checkboxLabel}
             </label>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
