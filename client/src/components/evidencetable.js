@@ -1,7 +1,6 @@
-//import React, { useMemo, useEffect } from "react";
-//import articles from "../dummydata/articles.js";
-import React from "react";
+import React, { useState } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
+import DatePicker from "react-datepicker";
 
 const Table = ({ columns, data }) => {
   const {
@@ -35,7 +34,10 @@ const Table = ({ columns, data }) => {
     usePagination
   );
 
-  // Render Data Table UI
+  const [fromDate, setFromDate] = useState(new Date());
+  const [toDate, setToDate] = useState(new Date());
+
+  // Render Data Table UI and checkboxes
   return (
     <>
       <div
@@ -83,6 +85,15 @@ const Table = ({ columns, data }) => {
             </label>
           );
         })}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+        }}>
+        <DatePicker seleted={fromDate} onChange={(date) => setFromDate(date)} />
+        <label> to </label>
+        <DatePicker seleted={toDate} onChange={(date) => setToDate(date)} />
       </div>
       <table {...getTableProps()}>
         <thead>
