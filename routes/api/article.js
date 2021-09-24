@@ -21,4 +21,17 @@ router.get('/', async (req, res) => {
     }
   })
 
+// Get specific pratcice
+router.get('/:practice', async (req, res) => {
+    try {
+      const wantedPractice = req.params.practice.replaceAll("&", " ")
+      const wantedPractice2 = wantedPractice.replace(":", "")
+      //res.status(500).json( {wantedPractice2} )
+      const article = await Article.find({'practice': wantedPractice2}) //.select('title authors source pubyear doi claim evidence')
+      res.json(article)
+    } catch (err) {
+      res.status(500).json({ message: err.message })
+    }
+  })
+
 module.exports = router;
