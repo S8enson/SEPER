@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Table = ({ columns, data }) => {
   const {
@@ -46,8 +47,11 @@ const Table = ({ columns, data }) => {
           flexDirection: "row",
         }}>
         {allColumns.map((column) => {
+          //Loops through each column to create corresponding checkbox
           let checkboxLabel;
-          switch (column.id) {
+          switch (
+            column.id //Switch to create more appropriate labels for each checkbox
+          ) {
             case "title":
               checkboxLabel = "Title";
               break;
@@ -88,12 +92,15 @@ const Table = ({ columns, data }) => {
       </div>
       <div
         style={{
-          display: "flex",
+          display: "inline-flex",
           flexDirection: "row",
         }}>
-        <DatePicker seleted={fromDate} onChange={(date) => setFromDate(date)} />
-        <label> to </label>
-        <DatePicker seleted={toDate} onChange={(date) => setToDate(date)} />
+        <DatePicker
+          selected={fromDate}
+          onChange={(date) => setFromDate(date)}
+        />
+        <label style={{ marginLeft: "5px", marginRight: "5px" }}> to </label>
+        <DatePicker selected={toDate} onChange={(date) => setToDate(date)} />
       </div>
       <table {...getTableProps()}>
         <thead>
