@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 import Datetime from "react-datetime";
+import moment from "moment";
 
 import "react-datetime/css/react-datetime.css";
 
 const Table = ({ columns, data }) => {
+  //const [tableData, setTableData] = useState(data);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -36,31 +39,39 @@ const Table = ({ columns, data }) => {
     usePagination
   );
 
-  const [fromDate, setFromDate] = useState(new Date());
-  const [toDate, setToDate] = useState(new Date());
+  //const [fromDate, setFromDate] = useState(new moment(null));
+  //const [toDate, setToDate] = useState(new moment(null));
+
+  /*const filterDate = () => {
+    const filteredData = tableData.map((element) => {
+      console.log(element + "Hello");
+      return null;
+    });
+  };*/
+
+  useEffect(() => {}, []);
 
   // Render Data Table UI and checkboxes
   return (
     <>
-      <div
+      {/*<div
         style={{
           display: "inline-flex",
           flexDirection: "row",
           marginBottom: "5px",
         }}>
-        {/*<DatePicker
-          selected={fromDate}
-          onChange={(date) => {
-            setFromDate(date);
-            console.log(page);
-          }}
+        <Datetime
+          dateFormat="YYYY"
+          timeFormat={false}
+          onChange={(date) => setFromDate(date)}
         />
         <label style={{ marginLeft: "5px", marginRight: "5px" }}> to </label>
-        <DatePicker selected={toDate} onChange={(date) => setToDate(date)} />*/}
-        <Datetime dateFormat="YYYY" timeFormat={false} />
-        <label style={{ marginLeft: "5px", marginRight: "5px" }}> to </label>
-        <Datetime dateFormat="YYYY" timeFormat={false} />
-      </div>
+        <Datetime
+          dateFormat="YYYY"
+          timeFormat={false}
+          onChange={(value) => setToDate(value)}
+        />
+      </div>*/}
       <div
         style={{
           display: "flex",
