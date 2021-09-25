@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import Datetime from "react-datetime";
+
+import "react-datetime/css/react-datetime.css";
 
 const Table = ({ columns, data }) => {
   const {
@@ -43,8 +44,28 @@ const Table = ({ columns, data }) => {
     <>
       <div
         style={{
+          display: "inline-flex",
+          flexDirection: "row",
+          marginBottom: "5px",
+        }}>
+        {/*<DatePicker
+          selected={fromDate}
+          onChange={(date) => {
+            setFromDate(date);
+            console.log(page);
+          }}
+        />
+        <label style={{ marginLeft: "5px", marginRight: "5px" }}> to </label>
+        <DatePicker selected={toDate} onChange={(date) => setToDate(date)} />*/}
+        <Datetime dateFormat="YYYY" timeFormat={false} />
+        <label style={{ marginLeft: "5px", marginRight: "5px" }}> to </label>
+        <Datetime dateFormat="YYYY" timeFormat={false} />
+      </div>
+      <div
+        style={{
           display: "flex",
           flexDirection: "row",
+          marginBottom: "5px",
         }}>
         {allColumns.map((column) => {
           //Loops through each column to create corresponding checkbox
@@ -89,18 +110,6 @@ const Table = ({ columns, data }) => {
             </label>
           );
         })}
-      </div>
-      <div
-        style={{
-          display: "inline-flex",
-          flexDirection: "row",
-        }}>
-        <DatePicker
-          selected={fromDate}
-          onChange={(date) => setFromDate(date)}
-        />
-        <label style={{ marginLeft: "5px", marginRight: "5px" }}> to </label>
-        <DatePicker selected={toDate} onChange={(date) => setToDate(date)} />
       </div>
       <table {...getTableProps()}>
         <thead>
