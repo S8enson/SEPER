@@ -1,9 +1,13 @@
-//import React, { useMemo, useEffect } from "react";
-//import articles from "../dummydata/articles.js";
-import React from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
+import Datetime from "react-datetime";
+import moment from "moment";
+
+import "react-datetime/css/react-datetime.css";
 
 const Table = ({ columns, data }) => {
+  //const [tableData, setTableData] = useState(data);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -35,17 +39,51 @@ const Table = ({ columns, data }) => {
     usePagination
   );
 
-  // Render Data Table UI
+  //const [fromDate, setFromDate] = useState(new moment(null));
+  //const [toDate, setToDate] = useState(new moment(null));
+
+  /*const filterDate = () => {
+    const filteredData = tableData.map((element) => {
+      console.log(element + "Hello");
+      return null;
+    });
+  };*/
+
+  useEffect(() => {}, []);
+
+  // Render Data Table UI and checkboxes
   return (
     <>
+      {/*<div
+        style={{
+          display: "inline-flex",
+          flexDirection: "row",
+          marginBottom: "5px",
+        }}>
+        <Datetime
+          dateFormat="YYYY"
+          timeFormat={false}
+          onChange={(date) => setFromDate(date)}
+        />
+        <label style={{ marginLeft: "5px", marginRight: "5px" }}> to </label>
+        <Datetime
+          dateFormat="YYYY"
+          timeFormat={false}
+          onChange={(value) => setToDate(value)}
+        />
+      </div>*/}
       <div
         style={{
           display: "flex",
           flexDirection: "row",
+          marginBottom: "5px",
         }}>
         {allColumns.map((column) => {
+          //Loops through each column to create corresponding checkbox
           let checkboxLabel;
-          switch (column.id) {
+          switch (
+            column.id //Switch to create more appropriate labels for each checkbox
+          ) {
             case "title":
               checkboxLabel = "Title";
               break;
