@@ -1,15 +1,10 @@
 name: Lint
+
 on: [push]
+
 jobs:
-  build:
-    name: Test
+  eslint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: install # will run `yarn install` command
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: eslint:github-action
-
+      - uses: stefanoeb/eslint-action@1.0.2
