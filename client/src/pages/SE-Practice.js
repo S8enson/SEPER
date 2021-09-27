@@ -40,7 +40,7 @@ const SEPractice = () => {
     (articles) => {
       var value = query;
       value = value.replaceAll(" ", "&");
-      value = "http://localhost:5000/api/v1/:" + value;
+      value = "/api/v1/:" + value;
       console.log(value); // en
       fetch(value)
         .then(async (res) => {
