@@ -39,39 +39,13 @@ const Table = ({ columns, data }) => {
     usePagination
   );
 
-  //const [fromDate, setFromDate] = useState(new moment(null));
-  //const [toDate, setToDate] = useState(new moment(null));
-
-  /*const filterDate = () => {
-    const filteredData = tableData.map((element) => {
-      console.log(element + "Hello");
-      return null;
-    });
-  };*/
 
   useEffect(() => {}, []);
 
   // Render Data Table UI and checkboxes
   return (
     <>
-      {/*<div
-        style={{
-          display: "inline-flex",
-          flexDirection: "row",
-          marginBottom: "5px",
-        }}>
-        <Datetime
-          dateFormat="YYYY"
-          timeFormat={false}
-          onChange={(date) => setFromDate(date)}
-        />
-        <label style={{ marginLeft: "5px", marginRight: "5px" }}> to </label>
-        <Datetime
-          dateFormat="YYYY"
-          timeFormat={false}
-          onChange={(value) => setToDate(value)}
-        />
-      </div>*/}
+
       <div
         style={{
           display: "flex",

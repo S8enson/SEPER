@@ -9,7 +9,9 @@ jobs:
       run: yarn --ignore-engines
     - name: Run ESLint
       run: yarn run eslint --ext .js
-    - name: Run the tests
+    - name: Run Backend tests
+      run: yarn test
+    - name: Run Frontend tests
       working-directory: ./client
       run: yarn --ignore-engines
       run: yarn test
