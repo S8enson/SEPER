@@ -8,4 +8,4 @@ jobs:
     - name: Install modules
       run: yarn --ignore-engines
     - name: Run ESLint
-      run: eslint --ext .js src
+      run: yarn run eslint --ext .js src
