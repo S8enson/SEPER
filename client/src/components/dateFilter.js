@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Datetime from "react-datetime";
-//import moment from "moment";
+
+import "react-datetime/css/react-datetime.css";
 
 const DateFilter = ({ articles, setArticles }) => {
   const [fromDate, setFromDate] = useState(null);

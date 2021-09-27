@@ -1,13 +1,8 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
-import Datetime from "react-datetime";
-import moment from "moment";
-
-import "react-datetime/css/react-datetime.css";
+import ColumnCheckbox from "../components/ColumnCheckbox.js";
 
 const Table = ({ columns, data }) => {
-  //const [tableData, setTableData] = useState(data);
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -39,89 +34,11 @@ const Table = ({ columns, data }) => {
     usePagination
   );
 
-  //const [fromDate, setFromDate] = useState(new moment(null));
-  //const [toDate, setToDate] = useState(new moment(null));
-
-  /*const filterDate = () => {
-    const filteredData = tableData.map((element) => {
-      console.log(element + "Hello");
-      return null;
-    });
-  };*/
-
-  useEffect(() => {}, []);
-
   // Render Data Table UI and checkboxes
   return (
     <>
-      {/*<div
-        style={{
-          display: "inline-flex",
-          flexDirection: "row",
-          marginBottom: "5px",
-        }}>
-        <Datetime
-          dateFormat="YYYY"
-          timeFormat={false}
-          onChange={(date) => setFromDate(date)}
-        />
-        <label style={{ marginLeft: "5px", marginRight: "5px" }}> to </label>
-        <Datetime
-          dateFormat="YYYY"
-          timeFormat={false}
-          onChange={(value) => setToDate(value)}
-        />
-      </div>*/}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          marginBottom: "5px",
-        }}>
-        {allColumns.map((column) => {
-          //Loops through each column to create corresponding checkbox
-          let checkboxLabel;
-          switch (
-            column.id //Switch to create more appropriate labels for each checkbox
-          ) {
-            case "title":
-              checkboxLabel = "Title";
-              break;
-            case "authors":
-              checkboxLabel = "Authors";
-              break;
-            case "source":
-              checkboxLabel = "Source";
-              break;
-            case "pubyear":
-              checkboxLabel = "Pub. Year";
-              break;
-            case "doi":
-              checkboxLabel = "DOI";
-              break;
-            case "claim":
-              checkboxLabel = "Claimed Benefit";
-              break;
-            case "evidence":
-              checkboxLabel = "Level of Evidence";
-              break;
-            case "practice":
-              checkboxLabel = "Practice";
-              break;
-            default:
-              checkboxLabel = "Something is wrong???";
-              console.error("Something wrong with your switch Liam");
-          }
-          return (
-            <label
-              key={column.id}
-              style={{ fontFamily: "sans-serif", marginRight: "20px" }}>
-              <input type="checkbox" {...column.getToggleHiddenProps()} />
-              {checkboxLabel}
-            </label>
-          );
-        })}
-      </div>
+      <ColumnCheckbox allColumns={allColumns} />{" "}
+      {/*Checkboxes for hiding columns*/}
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -159,7 +76,6 @@ const Table = ({ columns, data }) => {
           })}
         </tbody>
       </table>
-
       {/* Pagination */}
       <div className="pagination">
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
