@@ -13,7 +13,8 @@
     "dev": "nodemon server.js",
     "client": "cd client && yarn start",
     "mern": "concurrently -n 'server,client' -c 'yellow,blue' \"yarn run dev\" \"yarn run client\"",
-    "heroku-postbuild": "cd client && yarn install && yarn run build"
+    "heroku-postbuild": "cd client && yarn install && yarn run build",
+    "lint": "eslint --ext .js src"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "cors": "^2.8.5",
+    "eslint": "^7.32.0",
     "express": "^4.17.1",
     "mocha": "^9.0.2",
     "mongoose": "^5.13.3"
