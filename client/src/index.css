@@ -5,6 +5,7 @@ body {
 }
 h1, h2, p, ul, li {
   font-family: sans-serif;
+  text-align: center
 }
 ul.header li {
   display: inline;
@@ -13,7 +14,9 @@ ul.header li {
 }
 ul.header {
   background-color: #111;
-  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding: auto;
 }
 ul.header li a {
   color: #FFF;
