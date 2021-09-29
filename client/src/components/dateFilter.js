@@ -2,10 +2,18 @@ import React, { useState, useEffect } from "react";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import DateRanges from "../dummydata/DateRanges";
+import moment from "moment";
 
 const optionItems = DateRanges.map((DateRange) => (
   <option key={DateRange.range}>{DateRange.range}</option>
 ));
+
+function valid(current) {
+  var cur = moment().year(currentYear);
+  var old = moment().year(1900);
+  return current.isBefore(cur) && current.isAfter(old);
+}
+
 const currentYear = new Date().getFullYear()
 const DateFilter = ({ articles, setArticles }) => {
   const [fromDate, setFromDate] = useState(null);
@@ -52,12 +60,14 @@ const DateFilter = ({ articles, setArticles }) => {
       }}>
       <label style={{ marginLeft: "5px", marginRight: "5px" }}> Pub. Year From: </label>
       <Datetime
+        isValidDate={ valid }
         dateFormat="YYYY"
         timeFormat={false}
         onChange={(date) => setFromDate(date.year())}
       />
       <label style={{ marginLeft: "5px", marginRight: "5px" }}> To: </label>
       <Datetime
+        isValidDate={ valid }
         dateFormat="YYYY"
         timeFormat={false}
         onChange={(date) => setToDate(date.year())}
