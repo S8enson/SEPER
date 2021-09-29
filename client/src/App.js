@@ -3,7 +3,8 @@ import {
   Route,
   NavLink,
   BrowserRouter as Router,
-  Redirect
+  Redirect,
+  Switch
 } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -22,10 +23,12 @@ const App = () =>  {
               <li><NavLink to = "/SubmitArticle">Submit</NavLink></li>
           </ul>
         <div className="content">
+          <Switch>
           <Route exact path="/" component={Home}/>
           <Route  exact path="/SEPractice" component={SEPractice}/>
           <Route  exact path="/SubmitArticle" component={SubmitArticle}/>
           <Route path="*" component={NotFoundPage} />
+          </Switch>
         </div>
       </div>
       </Router>
