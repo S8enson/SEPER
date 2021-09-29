@@ -1,11 +1,9 @@
-//import articles from "../dummydata/articles.js";
-import Styles from "../components/tablestyle.js";
-import Table from "../components/evidencetable.js";
-import tablecolumns from "../components/tablecolumns.js";
-//import Dropdown from "../components/Dropdown.js";
-import { useEffect, useState } from "react";
-import SEPractices from "../dummydata/SEPractices";
-import DateFilter from "../components/dateFilter";
+import Styles from "../components/TableStyle.js";
+import Table from "../components/EvidenceTable.js";
+import tablecolumns from "../components/TableColumns.js";
+import React, { useEffect, useState } from "react";
+import SEPractices from "../dummydata/SEPractices.js";
+import DateFilter from "../components/DateFilter.js";
 
 const optionItems = SEPractices.map((SEPractice) => (
   <option key={SEPractice.practice}>{SEPractice.practice}</option>
@@ -36,25 +34,22 @@ const SEPractice = () => {
   ]);
   //const handleChange = event => setArticles(event.target.value);
   const [query, setQuery] = useState("Test Driven Development");
-  useEffect(
-    (articles) => {
-      var value = query;
-      value = value.replaceAll(" ", "&");
-      value = "/api/v1/:" + value;
-      console.log(value); // en
-      fetch(value)
-        .then(async (res) => {
-          if (res.ok) {
-            return res.json();
-          }
-        })
-        .then((jsonRes) => {
-          setArticles(jsonRes);
-          setFilteredArticles(jsonRes);
-        });
-    },
-    [query]
-  );
+  useEffect(() => {
+    var value = query;
+    value = value.replaceAll(" ", "&");
+    value = "/api/v1/:" + value;
+    console.log(value); // en
+    fetch(value)
+      .then(async (res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((jsonRes) => {
+        setArticles(jsonRes);
+        setFilteredArticles(jsonRes);
+      });
+  }, [query]);
 
   if (articles == null) {
     return (
