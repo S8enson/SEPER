@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Styles = styled.div `
 table {
+  border-radius: 5px;
   border-spacing: 0;
   border: 1px solid black;
   font-family: sans-serif;
@@ -26,8 +27,8 @@ table {
   }
  
   th {
-    background: #0099FF;
-    color: white;
+    background: #00AFF5;
+    
     fontWeight: bold;
   }
 }

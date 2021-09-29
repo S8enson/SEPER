@@ -1,10 +1,11 @@
 body {
-  background-color: #FFCC00;
-  padding: 20px;
+  background-color: #00AFF5;
+  
   margin: 0;
 }
-h1, h2, p, ul, li {
+h1, h2, h3, p, ul, li {
   font-family: sans-serif;
+  color: #000;
   text-align: center
 }
 ul.header li {
@@ -13,19 +14,23 @@ ul.header li {
   margin: 0;
 }
 ul.header {
-  background-color: #111;
   margin-left: auto;
   margin-right: auto;
   padding: auto;
 }
 ul.header li a {
-  color: #FFF;
+  border-radius: 5px;
+  color: #000;
   font-weight: bold;
   text-decoration: none;
-  padding: 20px;
+  padding: 20px 100px;
+  background-color: #FFF;
+  
+
   display: inline-block;
 }
 .content {
+  border-radius: 5px;
   background-color: #FFF;
   padding: 20px;
 }
@@ -37,5 +42,6 @@ ul.header li a {
   margin-bottom: 10px;
 }
 .active {
-  background-color: #0099FF;
+  
+  border: 1px solid black;
 }
