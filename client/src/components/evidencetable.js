@@ -1,6 +1,6 @@
 import React from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
-import ColumnCheckbox from "../components/ColumnCheckbox.js";
+import ColumnCheckbox from "./ColumnCheckbox.js";
 
 const Table = ({ columns, data }) => {
   const {

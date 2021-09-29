@@ -23,8 +23,8 @@ const App = () =>  {
           </ul>
         <div className="content">
           <Route exact path="/" component={Home}/>
-          <Route  path="/SEPractice" component={SEPractice}/>
-          <Route  path="/SubmitArticle" component={SubmitArticle}/>
+          <Route  exact path="/SEPractice" component={SEPractice}/>
+          <Route  exact path="/SubmitArticle" component={SubmitArticle}/>
           <Route exact path="/404" component={NotFoundPage}/>
           <Redirect to="/404" />
         </div>
