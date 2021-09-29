@@ -29,12 +29,13 @@ const DateFilter = ({ articles, setArticles }) => {
         flexDirection: "row",
         marginBottom: "5px",
       }}>
+      <label style={{ marginLeft: "5px", marginRight: "5px" }}> Pub. Year From: </label>
       <Datetime
         dateFormat="YYYY"
         timeFormat={false}
         onChange={(date) => setFromDate(date.year())}
       />
-      <label style={{ marginLeft: "5px", marginRight: "5px" }}> to </label>
+      <label style={{ marginLeft: "5px", marginRight: "5px" }}> To: </label>
       <Datetime
         dateFormat="YYYY"
         timeFormat={false}
