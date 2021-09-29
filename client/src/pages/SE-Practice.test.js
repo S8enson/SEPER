@@ -1,7 +1,10 @@
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
+import { useEffect } from 'react';
 import SEPractice from "./SE-Practice";
+import EvidenceTable from "../components/evidencetable"
+import TableColumns from "../components/tablecolumns.js";
 
 let container = null;
 beforeEach(() => {
@@ -40,7 +43,9 @@ it("empty table displays loading...", async () => {
   global.fetch.mockRestore();
 });
 
+
 it("table displays data", async () => {
+
   
   const fakeData = {
     title: 'An experimental evaluation of test driven development vs. test-last development with industry professionals',
@@ -51,16 +56,18 @@ it("table displays data", async () => {
     claim: "product quality improvement", 
     evidence: "weak support",
   };
-  jest.spyOn(global, "fetch").mockImplementation(() =>
-    Promise.resolve({
-      json: () => Promise.resolve(fakeData)
-    })
-  );
 
+  // jest.spyOn(React, "useEffect").mockImplementation(async () =>
+  //   Promise.resolve({
+  //     json: () => Promise.resolve(fakeData)
+  //   })
+  // );
   // Use the asynchronous version of act to apply resolved promises
   await act(async () => {
-    render(<SEPractice/>, container);
+    render(<EvidenceTable data={fakeData}/>, container);
   });
+   // render(<Table data={fakeData} columns={TableColumns} initialState={ 0 }/>, container);
+  
 
 
   expect(container.textContent).toContain(fakeData.title);
@@ -68,3 +75,4 @@ it("table displays data", async () => {
   // remove the mock to ensure tests are completely isolated
   global.fetch.mockRestore();
 });
+
