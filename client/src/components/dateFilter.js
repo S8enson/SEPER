@@ -4,6 +4,7 @@ import "react-datetime/css/react-datetime.css";
 import DateRanges from "../dummydata/DateRanges";
 import moment from "moment";
 
+
 const optionItems = DateRanges.map((DateRange) => (
   <option key={DateRange.range}>{DateRange.range}</option>
 ));
@@ -58,14 +59,14 @@ const DateFilter = ({ articles, setArticles }) => {
         flexDirection: "row",
         marginBottom: "5px",
       }}>
-      <label style={{ marginLeft: "5px", marginRight: "5px" }}> Pub. Year From: </label>
+      <label style={{ marginLeft: "5px", marginRight: "5px", fontFamily: "sans-serif"  }}> Pub. Year From: </label>
       <Datetime
         isValidDate={ valid }
         dateFormat="YYYY"
         timeFormat={false}
         onChange={(date) => setFromDate(date.year())}
       />
-      <label style={{ marginLeft: "5px", marginRight: "5px" }}> To: </label>
+      <label style={{ marginLeft: "5px", marginRight: "5px", mariginTop: "10px", fontFamily: "sans-serif" }}> To: </label>
       <Datetime
         isValidDate={ valid }
         dateFormat="YYYY"
