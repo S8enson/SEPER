@@ -7,7 +7,6 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
-    "babel-jest": "^27.2.4",
     "create-react-form": "^0.0.1",
     "jest-watch-typeahead": "^0.6.4",
     "moment": "^2.29.1",
@@ -22,7 +21,9 @@
     "react-scripts": "4.0.3",
     "react-table": "^7.7.0",
     "styled-components": "^5.3.0",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "jest": "^26.6.0",
+    "babel-jest": "^26.6.0"
   },
   "proxy": "http://localhost:5000",
   "scripts": {
