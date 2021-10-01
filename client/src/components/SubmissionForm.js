@@ -45,6 +45,7 @@ const SubmissionForm = ({ onSubmit }) => {
     .catch(err => {
       console.log("Error in SubmissionForm!");
     })
+    onSubmit(values);
   }
   // onChange = e => {
   //   this.setState({ [e.target.name]: e.target.value });
@@ -117,7 +118,7 @@ const SubmissionForm = ({ onSubmit }) => {
                     placeholder='Select SE practice...'
                     onChange={handleInputChange} >
         <option value="TDD">TDD</option>
-        <option value="Mob Programming">Mob Programmin</option>
+        <option value="Mob Programming">Mob Programming</option>
       </select>
 
       <input type="submit" />
