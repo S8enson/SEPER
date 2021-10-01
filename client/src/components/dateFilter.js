@@ -19,7 +19,7 @@ const currentYear = new Date().getFullYear()
 const DateFilter = ({ articles, setArticles }) => {
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
-  const [query, setQuery] = useState('All');
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const filterDate = () => {

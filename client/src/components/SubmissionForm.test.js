@@ -44,5 +44,20 @@ const setup = (props = {}) => {
         name: "TEST"
       });
     });
+
+    it("Submission fails if required entries empty", () => {
+        const handleSubmitMock = jest.fn();
+        const wrapper = setup({ onSubmit: handleSubmitMock });
+    
+        const nameInput = wrapper.find("input[name='title']");
+        nameInput.simulate("change", {
+          target: { name: "title", value: "TEST" }
+        });
+    
+        const form = wrapper.find("form");
+        form.simulate("submit", {});
+    
+        expect(handleSubmitMock).toHaveBeenCalledTimes(0);
+      });
   });
 
