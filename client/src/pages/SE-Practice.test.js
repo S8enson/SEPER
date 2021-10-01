@@ -1,10 +1,10 @@
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import SEPractice from "./SE-Practice";
-import EvidenceTable from "../components/evidencetable"
-import TableColumns from "../components/tablecolumns.js";
+import EvidenceTable from "../components/evidencetable";
+import TableColumns from "../components/TableColumns.js";
 
 let container = null;
 beforeEach(() => {
@@ -21,21 +21,17 @@ afterEach(() => {
 });
 
 it("empty table displays loading...", async () => {
-  
-  const fakeData = {
-
-  };
+  const fakeData = {};
   jest.spyOn(global, "fetch").mockImplementation(() =>
     Promise.resolve({
-      json: () => Promise.resolve(fakeData)
+      json: () => Promise.resolve(fakeData),
     })
   );
 
   // Use the asynchronous version of act to apply resolved promises
   await act(async () => {
-    render(<SEPractice/>, container);
+    render(<SEPractice />, container);
   });
-
 
   expect(container.textContent).toContain("loading...");
 
@@ -43,17 +39,15 @@ it("empty table displays loading...", async () => {
   global.fetch.mockRestore();
 });
 
-
 it("table displays data", async () => {
-
-  
   const fakeData = {
-    title: 'An experimental evaluation of test driven development vs. test-last development with industry professionals',
+    title:
+      "An experimental evaluation of test driven development vs. test-last development with industry professionals",
     authors: "Munir, H., Wnuk, K., Petersen, K., Moayyed, M.",
     source: "EASE",
     pubyear: "2014",
     doi: "https://doi.org/10.1145/2601248.2601267",
-    claim: "product quality improvement", 
+    claim: "product quality improvement",
     evidence: "weak support",
   };
 
@@ -64,15 +58,12 @@ it("table displays data", async () => {
   // );
   // Use the asynchronous version of act to apply resolved promises
   await act(async () => {
-    render(<EvidenceTable data={fakeData}/>, container);
+    render(<EvidenceTable data={fakeData} />, container);
   });
-   // render(<Table data={fakeData} columns={TableColumns} initialState={ 0 }/>, container);
-  
-
+  // render(<Table data={fakeData} columns={TableColumns} initialState={ 0 }/>, container);
 
   expect(container.textContent).toContain(fakeData.title);
 
   // remove the mock to ensure tests are completely isolated
   global.fetch.mockRestore();
 });
-
