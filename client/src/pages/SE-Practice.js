@@ -61,9 +61,9 @@ const SEPractice = () => {
 
   return (
     <div>
-      <h2 style={{ marginBottom: "5px" }}>
+      <h3 style={{ marginBottom: "5px" }}>
         Select SE Practice to get evidence for the claimed benefits
-      </h2>
+      </h3>
       <select
         id="practiceSelect"
         value={query}
