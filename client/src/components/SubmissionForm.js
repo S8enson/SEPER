@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class SubmissionForm extends Component {
-  constructor() {
-    super();
+  constructor(onSubmit) {
+    super(onSubmit);
     this.state = {
       title: '',
       authors:'',
