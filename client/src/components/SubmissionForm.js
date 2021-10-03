@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const SubmissionForm = ({ onSubmit }) => {
-  // constructor(onSubmit) {
+  // constructor() {
   //   super();
   //   this.state = {
   //     title: '',
@@ -15,37 +15,47 @@ const SubmissionForm = ({ onSubmit }) => {
   //     sepractice:''
   //   };
   // }
+  const [title, setTitle] = useState('');
+  const [authors, setAuthors] = useState('');
+  const [source, setSource] = useState('');
+  const [pubyear, setPubyear] = useState('');
+  const [doi, setDoi] = useState('');
+  const [practice, setPractice] = useState('');
+  const [email, setEmail] = useState('');
+  const state = '1';
+  //state=> 1:awaiting moderation, 2:awaiting analysis, 3:approved&analysed
+  
 
-  const [values, setValues] = useState({});
 
-  function handleInputChange(event) {
-    const { name, value } = event.target;
-    setValues({
-      ...value,
-      [name]: value
-    });
-  }
+  // const [values, setValues] = useState({});
+
+  // function handleInputChange(event) {
+  //   const { name, value } = event.target;
+  //   setValues({
+  //     ...value,
+  //     [name]: value
+  //   });
+  // }
 
   function handleSubmit(event) {
     event.preventDefault();
     // onSubmit(values);
+    // console.log(values);
     axios
-    .post('/submit', values)
+    .post('/api/v1/submit', data)
     .then(res => {
-      this.setState({
-        title: '',
-        authors:'',
-        source:'',
-        pubyear:'',
-        doi:'',
-        sepractice:''
-      })
+setTitle('');
+setAuthors('');
+setSource('');
+setPubyear('');
+setDoi('');
+setEmail('');
       this.props.history.push('/');
     })
     .catch(err => {
       console.log("Error in SubmissionForm!");
     })
-    onSubmit(values);
+    //onSubmit(values);
   }
   // onChange = e => {
   //   this.setState({ [e.target.name]: e.target.value });
@@ -54,14 +64,15 @@ const SubmissionForm = ({ onSubmit }) => {
   // onSubmit = e => {
   //   // e.preventDefault();
 
-  //   // const data = {
-  //   //   title: this.state.title,
-  //   //   authors: this.state.authors,
-  //   //   source: this.state.source,
-  //   //   pubyear: this.state.pubyear,
-  //   //   doi: this.state.doi,
-  //   //   sepractice: this.state.sepractice
-  //   // };
+    const data = {
+      title,
+      authors,
+      source,
+      pubyear,
+      doi,
+      practice,
+      state
+    };
 
   //   axios
   //     .post('/submit', values)
@@ -86,42 +97,62 @@ const SubmissionForm = ({ onSubmit }) => {
       
       <form noValidate onSubmit={handleSubmit}>
     
-      <input                     
+    <p><input                     
       type='text'
                     placeholder='Title'
                     name='title'
                     className='form-control'
-                    onChange={handleInputChange} 
-                    />
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                    required
+                    /></p>
       <p><input       type='text'
                     placeholder='Authors'
                     name='authors'
                     className='form-control'
-                    onChange={handleInputChange}  /></p>
+                    onChange={(e) => setAuthors(e.target.value)}
+                    value={authors}
+                    required
+                    /></p>
       <p><input       type='text'
                     placeholder='Source'
                     name='source'
                     className='form-control'
-                    onChange={handleInputChange}  /></p> 
+                    onChange={(e) => setSource(e.target.value)}  
+                    value={source}
+                    required
+                    /></p> 
       <p><input       type='number'
                     placeholder='Publication Year'
                     name='pubyear'
                     className='form-control'
-                    onChange={handleInputChange}  /></p>
+                    onChange={(e) => setPubyear(e.target.value)}
+                    value={pubyear}
+                    min='1900'
+                    max={new Date().getFullYear()}
+                    required
+                    /></p>
       <p><input       type='text'
                     placeholder='DOI'
                     name='doi'
                     className='form-control'
-                    onChange={handleInputChange}  /></p>
-     
-      <select       type='text'
+                    onChange={(e) => setDoi(e.target.value)} 
+                    value={doi}/></p>
+      <p><input       type='text'
+                    placeholder='email'
+                    name='email'
+                    className='form-control'
+                    onChange={(e) => setEmail(e.target.value)} 
+                    value={email}/></p>     
+     <p><select       type='text'
                     placeholder='Select SE practice...'
-                    onChange={handleInputChange} >
+                    onChange={(e) => setPractice(e.target.value)} 
+                    value={practice}>
         <option value="TDD">TDD</option>
         <option value="Mob Programming">Mob Programming</option>
-      </select>
+      </select></p>
 
-      <input type="submit" />
+      <p><input type="submit" /></p>
     </form>
   );
     
