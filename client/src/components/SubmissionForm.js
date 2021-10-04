@@ -16,6 +16,7 @@ const SubmissionForm = ({ onSubmit }) => {
   const [bib, setBib] = useState("");
   const [file, setFile] = useState("");
   const [text, setText] = useState("");
+  // const [entry, setEntry] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -46,35 +47,30 @@ const SubmissionForm = ({ onSubmit }) => {
     state,
   };
 
-  // const initialRender = useRef(true);
-  // useEffect(() => {
-  //   if(initialRender.current){
-  //     initialRender.current = false;
-  //   }else{
-  //   const entry = bib.getEntry(
-  //     text.substring(text.indexOf("{") + 1, text.indexOf(","))
-  //   );
-  //   setTitle(normalizeFieldValue(entry.getField("title")));
-  //   setAuthors(normalizeFieldValue(entry.getField("author")));
-  //   setSource(normalizeFieldValue(entry.getField("journal")));
-  //   setPubyear(normalizeFieldValue(entry.getField("year")));
-  //   setDoi(normalizeFieldValue(entry.getField("DOI")));
-  // }}, [bib]);
+  const initialRender = useRef(true);
+  useEffect(() => {
+    if(initialRender.current){
+
+      initialRender.current = false;
+    }else{
+
+    const bibFile = parseBibFile(text);
+    const entry = bibFile.getEntry(
+      text.substring(text.indexOf("{") + 1, text.indexOf(","))
+    );
+    setTitle(normalizeFieldValue(entry.getField("title")));
+    setAuthors(normalizeFieldValue(entry.getField("author")));
+    setSource(normalizeFieldValue(entry.getField("journal")));
+    setPubyear(normalizeFieldValue(entry.getField("year")));
+    setDoi(normalizeFieldValue(entry.getField("DOI")));
+  }}, [text]);
+
 
   async function readFile(e) {
     e.preventDefault();
     const reader = new FileReader();
     reader.onload = async (e) => {
       setText(e.target.result);
-      setBib(parseBibFile(text));
-      const entry = bib.getEntry(
-        text.substring(text.indexOf("{") + 1, text.indexOf(","))
-      );
-      setTitle(normalizeFieldValue(entry.getField("title")));
-      setAuthors(normalizeFieldValue(entry.getField("author")));
-      setSource(normalizeFieldValue(entry.getField("journal")));
-      setPubyear(normalizeFieldValue(entry.getField("year")));
-      setDoi(normalizeFieldValue(entry.getField("DOI")));
     };
     reader.readAsText(e.target.files[0]);
     //setFile("");
