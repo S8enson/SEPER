@@ -33,10 +33,10 @@ const SubmissionForm = ({ onSubmit }) => {
         setPubyear("");
         setDoi("");
         setEmail("");
-        this.props.history.push("/");
+        //this.props.history.push("/");
       })
       .catch((err) => {
-        console.log("Error in SubmissionForm!");
+        console.log(err);
       });
   }
 
@@ -78,7 +78,7 @@ const SubmissionForm = ({ onSubmit }) => {
   }
 
   return (
-    <form noValidate onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <p>
         <input
           type="file"
@@ -101,7 +101,7 @@ const SubmissionForm = ({ onSubmit }) => {
           onChange={(e) => setTitle(e.target.value)}
           value={title}
           style={{ width: "200px" }}
-          required
+          required="required"
         />
       </p>
       <p>
@@ -113,7 +113,7 @@ const SubmissionForm = ({ onSubmit }) => {
           onChange={(e) => setAuthors(e.target.value)}
           value={authors}
           style={{ width: "200px" }}
-          required
+          required="required"
         />
       </p>
       <p>
@@ -125,7 +125,7 @@ const SubmissionForm = ({ onSubmit }) => {
           onChange={(e) => setSource(e.target.value)}
           value={source}
           style={{ width: "200px" }}
-          required
+          required="required"
         />
       </p>
       <p>
@@ -139,7 +139,7 @@ const SubmissionForm = ({ onSubmit }) => {
           min="1900"
           max={new Date().getFullYear()}
           style={{ width: "200px" }}
-          required
+          required="required"
         />
       </p>
       <p>
