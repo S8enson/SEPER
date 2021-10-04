@@ -1,105 +1,185 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { parseBibFile, normalizeFieldValue } from "bibtex";
+import SEPractices from "../dummydata/SEPractices.js";
 
-class SubmissionForm extends Component {
-  constructor() {
-    super();
-    this.state = {
-      title: '',
-      authors:'',
-      source:'',
-      pubyear:'',
-      doi:'',
-      sepractice:''
-    };
-  }
+const SubmissionForm = ({ onSubmit }) => {
+  const [title, setTitle] = useState("");
+  const [authors, setAuthors] = useState("");
+  const [source, setSource] = useState("");
+  const [pubyear, setPubyear] = useState("");
+  const [doi, setDoi] = useState("");
+  const [practice, setPractice] = useState("");
+  const [email, setEmail] = useState("");
+  const state = "1";
+  const [file, setFile] = useState("");
+  const [text, setText] = useState("");
+  
+  const optionItems = SEPractices.map((SEPractice) => (
+    <option key={SEPractice.practice}>{SEPractice.practice}</option>
+  ));
 
-  onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onSubmit = e => {
-    e.preventDefault();
-
-    const data = {
-      title: this.state.title,
-      authors: this.state.authors,
-      source: this.state.source,
-      pubyear: this.state.pubyear,
-      doi: this.state.doi,
-      sepractice: this.state.sepractice
-    };
+  function handleSubmit(event) {
+    event.preventDefault();
 
     axios
-      .post('https://ense-4.herokuapp.com/api/articles', data)
-      .then(res => {
-        this.setState({
-          title: '',
-          authors:'',
-          source:'',
-          pubyear:'',
-          doi:'',
-          sepractice:''
-        })
-        this.props.history.push('/');
+      .post("/api/v1/submit", data)
+      .then((res) => {
+        setTitle("");
+        setAuthors("");
+        setSource("");
+        setPubyear("");
+        setDoi("");
+        setEmail("");
+        //this.props.history.push("/");
       })
-      .catch(err => {
-        console.log("Error in SubmissionForm!");
-      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const data = {
+    title,
+    authors,
+    source,
+    pubyear,
+    doi,
+    practice,
+    state,
   };
 
-  render() {
-    return (
-      
-      <form noValidate onSubmit={this.onSubmit}>
-    
-      <input                     
-      type='text'
-                    placeholder='Title'
-                    name='title'
-                    className='form-control'
-                    value={this.state.title}
-                    onChange={this.onChange} 
-                    />
-      <p><input       type='text'
-                    placeholder='Authors'
-                    name='authors'
-                    className='form-control'
-                    value={this.state.authors}
-                    onChange={this.onChange}  /></p>
-      <p><input       type='text'
-                    placeholder='Source'
-                    name='source'
-                    className='form-control'
-                    value={this.state.source}
-                    onChange={this.onChange}  /></p> 
-      <p><input       type='number'
-                    placeholder='Publication Year'
-                    name='pubyear'
-                    className='form-control'
-                    value={this.state.pubyear}
-                    onChange={this.onChange}  /></p>
-      <p><input       type='text'
-                    placeholder='DOI'
-                    name='doi'
-                    className='form-control'
-                    value={this.state.doi}
-                    onChange={this.onChange}  /></p>
-     
-      <select       type='text'
-                    placeholder='Select SE practice...'
-                    value={this.state.sepractice}
-                    onChange={this.onChange} >
-        <option value="TDD">TDD</option>
-        <option value="Mob Programming">Mob Programmin</option>
-      </select>
+  const initialRender = useRef(true);
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      const bibFile = parseBibFile(text);
+      const entry = bibFile.getEntry(
+        text.substring(text.indexOf("{") + 1, text.indexOf(","))
+      );
+      setTitle(normalizeFieldValue(entry.getField("title")));
+      setAuthors(normalizeFieldValue(entry.getField("author")));
+      setSource(normalizeFieldValue(entry.getField("journal")));
+      setPubyear(normalizeFieldValue(entry.getField("year")));
+      setDoi(normalizeFieldValue(entry.getField("DOI")));
+    }
+  }, [text]);
 
-      <input type="submit" />
+  async function readFile(e) {
+    e.preventDefault();
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      setText(e.target.result);
+    };
+    reader.readAsText(e.target.files[0]);
+    //setFile("");
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <p>
+        <input
+          type="file"
+          placeholder="bibtex"
+          name="bibtex"
+          className="form-control"
+          onChange={(e) => readFile(e)}
+          value={file}
+          style={{ width: "200px" }}
+          accept=".bib"
+        />
+      </p>
+      <p>or</p>
+      <p>
+        <input
+          type="text"
+          placeholder="Title"
+          name="title"
+          className="form-control"
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
+          style={{ width: "200px" }}
+          required="required"
+        />
+      </p>
+      <p>
+        <input
+          type="text"
+          placeholder="Authors"
+          name="authors"
+          className="form-control"
+          onChange={(e) => setAuthors(e.target.value)}
+          value={authors}
+          style={{ width: "200px" }}
+          required="required"
+        />
+      </p>
+      <p>
+        <input
+          type="text"
+          placeholder="Source"
+          name="source"
+          className="form-control"
+          onChange={(e) => setSource(e.target.value)}
+          value={source}
+          style={{ width: "200px" }}
+          required="required"
+        />
+      </p>
+      <p>
+        <input
+          type="number"
+          placeholder="Publication Year"
+          name="pubyear"
+          className="form-control"
+          onChange={(e) => setPubyear(e.target.value)}
+          value={pubyear}
+          min="1900"
+          max={new Date().getFullYear()}
+          style={{ width: "200px" }}
+          required="required"
+        />
+      </p>
+      <p>
+        <input
+          type="text"
+          placeholder="DOI"
+          name="doi"
+          className="form-control"
+          onChange={(e) => setDoi(e.target.value)}
+          value={doi}
+          style={{ width: "200px" }}
+        />
+      </p>
+      <p>
+        <input
+          type="text"
+          placeholder="email"
+          name="email"
+          className="form-control"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          style={{ width: "200px" }}
+        />
+      </p>
+      <p>
+      <select
+        id="practiceSelect"
+        value={practice}
+        onChange={(event) => setPractice(event.target.value)}
+        style={{ width: "208px" }}>
+        <option value="">Select an SE Practice </option>
+        {optionItems}
+      </select>
+      </p>
+
+      <p>
+        <input type="submit" />
+      </p>
     </form>
   );
-    }
-}
+};
 
 export default SubmissionForm;

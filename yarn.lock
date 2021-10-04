@@ -1695,6 +1695,11 @@ balanced-match@^1.0.0:
   resolved "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
+
+bibtex@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/bibtex/-/bibtex-0.9.0.tgz#62126692c8cc897e6d3824dc5948b0bce13b050e"
+  integrity sha512-2YsG89+ZtFD04Dd+KDDUxjtEdiQMW4lbGsXzs5sa+nCpmOrauyChkOAdbLegVSAH2JKEfgu7SFESIVRKQCfD9Q==
 base@^0.11.1:
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/base/-/base-0.11.2.tgz#7bde5ced145b6d551a90db87f83c558b4eb48a8f"
@@ -1707,6 +1712,7 @@ base@^0.11.1:
     isobject "^3.0.1"
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
+
 
 binary-extensions@^2.0.0:
   version "2.2.0"

@@ -10,7 +10,9 @@ const ArticleSchema = new Schema({
   doi: String,
   claim: String,
   evidence: String,
-  practice: String
+  practice: String,
+  email: String,
+  state: String
 });
 
 const Article = mongoose.model('article',ArticleSchema);

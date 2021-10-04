@@ -20,6 +20,7 @@ const DateFilter = ({ articles, setArticles }) => {
   const [toDate, setToDate] = useState(null);
   const [query, setQuery] = useState("");
 
+
   useEffect(() => {
     const filterDate = () => {
       const data = [];
