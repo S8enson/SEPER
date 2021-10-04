@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { parseBibFile, normalizeFieldValue } from "bibtex";
+import SEPractices from "../dummydata/SEPractices.js";
 
 const SubmissionForm = ({ onSubmit }) => {
   const [title, setTitle] = useState("");
@@ -13,10 +14,12 @@ const SubmissionForm = ({ onSubmit }) => {
   const [practice, setPractice] = useState("");
   const [email, setEmail] = useState("");
   const state = "1";
-  const [bib, setBib] = useState("");
   const [file, setFile] = useState("");
   const [text, setText] = useState("");
-  // const [entry, setEntry] = useState("");
+  
+  const optionItems = SEPractices.map((SEPractice) => (
+    <option key={SEPractice.practice}>{SEPractice.practice}</option>
+  ));
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -49,22 +52,20 @@ const SubmissionForm = ({ onSubmit }) => {
 
   const initialRender = useRef(true);
   useEffect(() => {
-    if(initialRender.current){
-
+    if (initialRender.current) {
       initialRender.current = false;
-    }else{
-
-    const bibFile = parseBibFile(text);
-    const entry = bibFile.getEntry(
-      text.substring(text.indexOf("{") + 1, text.indexOf(","))
-    );
-    setTitle(normalizeFieldValue(entry.getField("title")));
-    setAuthors(normalizeFieldValue(entry.getField("author")));
-    setSource(normalizeFieldValue(entry.getField("journal")));
-    setPubyear(normalizeFieldValue(entry.getField("year")));
-    setDoi(normalizeFieldValue(entry.getField("DOI")));
-  }}, [text]);
-
+    } else {
+      const bibFile = parseBibFile(text);
+      const entry = bibFile.getEntry(
+        text.substring(text.indexOf("{") + 1, text.indexOf(","))
+      );
+      setTitle(normalizeFieldValue(entry.getField("title")));
+      setAuthors(normalizeFieldValue(entry.getField("author")));
+      setSource(normalizeFieldValue(entry.getField("journal")));
+      setPubyear(normalizeFieldValue(entry.getField("year")));
+      setDoi(normalizeFieldValue(entry.getField("DOI")));
+    }
+  }, [text]);
 
   async function readFile(e) {
     e.preventDefault();
@@ -164,16 +165,14 @@ const SubmissionForm = ({ onSubmit }) => {
         />
       </p>
       <p>
-        <select
-          type="text"
-          placeholder="Select SE practice..."
-          onChange={(e) => setPractice(e.target.value)}
-          value={practice}
-          style={{ width: "200px" }}
-        >
-          <option value="TDD">TDD</option>
-          <option value="Mob Programming">Mob Programming</option>
-        </select>
+      <select
+        id="practiceSelect"
+        value={practice}
+        onChange={(event) => setPractice(event.target.value)}
+        style={{ width: "208px" }}>
+        <option value="">Select an SE Practice </option>
+        {optionItems}
+      </select>
       </p>
 
       <p>
