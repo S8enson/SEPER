@@ -11,12 +11,24 @@ mongoose.connect(process.env.MONGODB_URI, {
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection error:"));
 
-//Get all
+//Get all accepted articles
 router.get("/", async (req, res) => {
   try {
+    console.log("all");
     const article = await Article.find({
       state: "3",
     });
+    res.json(article);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get submissions awaiting moderation
+router.get("/moderation", async (req, res) => {
+  try {
+    console.log("get moderation");
+    const article = await Article.find({ state: "1" });
     res.json(article);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -34,17 +46,6 @@ router.get("/:practice", async (req, res) => {
       practice: wantedPractice2,
       state: "3",
     });
-    res.json(article);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// Get submissions awaiting moderation
-router.get("/moderation", async (req, res) => {
-  try {
-    console.log("get moderation");
-    const article = await Article.find({ state: "1" });
     res.json(article);
   } catch (err) {
     res.status(500).json({ message: err.message });

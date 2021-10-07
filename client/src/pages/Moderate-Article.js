@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "../components/ModerationTable.js";
 import TableColumns from "../components/ModerationTableColumns.js";
+import Styles from "../components/TableStyle.js";
 
 const ModerateArticle = () => {
   const [articles, setArticles] = useState([
@@ -16,7 +17,7 @@ const ModerateArticle = () => {
   ]);
 
   useEffect(() => {
-    fetch("/api/v1/moderation")
+    fetch("api/v1/moderation")
       .then(async (res) => {
         if (res.ok) {
           return res.json();
@@ -31,7 +32,9 @@ const ModerateArticle = () => {
   return (
     <div>
       <h2>Moderation</h2>
-      <Table data={articles} columns={TableColumns} />
+      <Styles>
+        <Table data={articles} columns={TableColumns} />
+      </Styles>
     </div>
   );
 };

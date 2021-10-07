@@ -16,7 +16,7 @@ const SubmissionForm = ({ onSubmit }) => {
   const state = "1";
   const [file, setFile] = useState("");
   const [text, setText] = useState("");
-  
+
   const optionItems = SEPractices.map((SEPractice) => (
     <option key={SEPractice.practice}>{SEPractice.practice}</option>
   ));
@@ -46,6 +46,7 @@ const SubmissionForm = ({ onSubmit }) => {
     source,
     pubyear,
     doi,
+    email,
     practice,
     state,
   };
@@ -165,14 +166,14 @@ const SubmissionForm = ({ onSubmit }) => {
         />
       </p>
       <p>
-      <select
-        id="practiceSelect"
-        value={practice}
-        onChange={(event) => setPractice(event.target.value)}
-        style={{ width: "208px" }}>
-        <option value="">Select an SE Practice </option>
-        {optionItems}
-      </select>
+        <select
+          id="practiceSelect"
+          value={practice}
+          onChange={(event) => setPractice(event.target.value)}
+          style={{ width: "208px" }}>
+          <option value="">Select an SE Practice </option>
+          {optionItems}
+        </select>
       </p>
 
       <p>
