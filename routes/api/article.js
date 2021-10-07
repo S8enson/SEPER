@@ -14,7 +14,9 @@ db.on("error", console.error.bind(console, "Connection error:"));
 //Get all
 router.get("/", async (req, res) => {
   try {
-    const article = await Article.find();
+    const article = await Article.find({
+      state: "3",
+    });
     res.json(article);
   } catch (err) {
     res.status(500).json({ message: err.message });
