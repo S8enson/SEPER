@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const ArticleSchema = new Schema({
   title: String,
@@ -12,8 +12,8 @@ const ArticleSchema = new Schema({
   evidence: String,
   practice: String,
   email: String,
-  state: String
+  state: String,
 });
 
-const Article = mongoose.model('article',ArticleSchema);
+const Article = mongoose.model("article", ArticleSchema);
 module.exports = Article;

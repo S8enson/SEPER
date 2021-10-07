@@ -48,6 +48,7 @@ const SEPractice = () => {
         }
       })
       .then((jsonRes) => {
+        console.log(jsonRes);
         setArticles(jsonRes);
         setFilteredArticles(jsonRes);
       });

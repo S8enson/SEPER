@@ -24,6 +24,7 @@ router.get("/", async (req, res) => {
 // Get specific pratcice - search
 router.get("/:practice", async (req, res) => {
   try {
+    console.log("get practice");
     const wantedPractice = req.params.practice.replaceAll("&", " ");
     const wantedPractice2 = wantedPractice.replace(":", "");
     //res.status(500).json( {wantedPractice2} )
@@ -40,6 +41,7 @@ router.get("/:practice", async (req, res) => {
 // Get submissions awaiting moderation
 router.get("/moderation", async (req, res) => {
   try {
+    console.log("get moderation");
     const article = await Article.find({ state: "1" });
     res.json(article);
   } catch (err) {
