@@ -73,8 +73,9 @@ const SEPractice = () => {
         onChange={(event) => setQuery(event.target.value)}
         style={{ marginBottom: "5px" }}>
         <option hidden value="">
-          Select an SE Practice{" "}
+          Select an SE Practice
         </option>
+        <option value="">All</option>
         {optionItems}
       </select>
       <div>

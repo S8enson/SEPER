@@ -67,20 +67,20 @@ router.post("/submit", (req, res) => {
     );
 });
 
-// Update 
-router.put('/:id', (req, res) => {
+// Update
+router.put("/:id", (req, res) => {
   Book.findByIdAndUpdate(req.params.id, req.body)
-    .then(book => res.json({ msg: 'Updated successfully' }))
-    .catch(err =>
-      res.status(400).json({ error: 'Unable to update the Database' })
+    .then((book) => res.json({ msg: "Updated successfully" }))
+    .catch((err) =>
+      res.status(400).json({ error: "Unable to update the Database" })
     );
 });
 
 // Delete
-router.delete('/:id', (req, res) => {
+router.delete("/:id", (req, res) => {
   Book.findByIdAndRemove(req.params.id, req.body)
-    .then(book => res.json({ mgs: 'Book entry deleted successfully' }))
-    .catch(err => res.status(404).json({ error: 'No such a book' }));
+    .then((book) => res.json({ mgs: "Book entry deleted successfully" }))
+    .catch((err) => res.status(404).json({ error: "No such a book" }));
 });
 
 module.exports = router;
