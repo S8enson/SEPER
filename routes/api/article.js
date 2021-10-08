@@ -2,6 +2,15 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Article = require("../../models/article");
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "seper.app.bot@gmail.com",
+    pass: "seperapp1",
+  },
+});
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -14,10 +23,7 @@ db.on("error", console.error.bind(console, "Connection error:"));
 //Get all accepted articles
 router.get("/", async (req, res) => {
   try {
-    console.log("all");
-    const article = await Article.find({
-      state: "3",
-    });
+    const article = await Article.find({});
     res.json(article);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -27,8 +33,29 @@ router.get("/", async (req, res) => {
 // Get submissions awaiting moderation
 router.get("/moderation", async (req, res) => {
   try {
-    console.log("get moderation");
     const article = await Article.find({ state: "1" });
+    res.json(article);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+router.put("/moderationaccept", async (req, res) => {
+  try {
+    const article = await Article.findByIdAndUpdate(req.body.id, {
+      state: "2",
+    });
+    res.json(article);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+router.put("/moderationdeny", async (req, res) => {
+  try {
+    const article = await Article.findByIdAndUpdate(req.body.id, {
+      state: "4",
+    });
     res.json(article);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -66,7 +93,22 @@ router.get("/analysis", async (req, res) => {
 router.post("/submit", (req, res) => {
   console.log(req.body);
   Article.create(req.body)
-    .then((article) => res.json({ msg: "Article submitted successfully" }))
+    .then((article) => {
+      res.json({ msg: "Article submitted successfully" });
+      const mailOptions = {
+        from: "seper.app.bot@gmail.com",
+        to: "qtn0334@autuni.ac.nz, dcm2548@autuni.ac.nz",
+        subject: "You have new articles to moderate in SEPER!",
+        text: "Someone has submitted an article to SEPER!",
+      };
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Moderator email sent: " + info.response);
+        }
+      });
+    })
     .catch((err) =>
       res.status(400).json({ error: "Unable to submit this article" })
     );

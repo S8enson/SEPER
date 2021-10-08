@@ -1,7 +1,39 @@
 import React from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
+import axios from "axios";
 
-const Table = ({ columns, data }) => {
+const columns = [
+  {
+    Header: "Title",
+    accessor: "title",
+  },
+  {
+    Header: "Authors",
+    accessor: "authors",
+  },
+  {
+    Header: "Source",
+    accessor: "source",
+  },
+  {
+    Header: "Pub. Year",
+    accessor: "pubyear",
+  },
+  {
+    Header: "DOI",
+    accessor: "doi",
+  },
+  {
+    Header: "Email",
+    accessor: "email",
+  },
+  {
+    Header: "Practice",
+    accessor: "practice",
+  },
+];
+
+const Table = ({ data }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -27,6 +59,16 @@ const Table = ({ columns, data }) => {
     usePagination
   );
 
+  async function moderationAccept(id) {
+    const article = await axios.put("/api/v1/moderationaccept", { id });
+    console.log(article);
+  }
+
+  async function moderationDeny(id) {
+    const article = await axios.put("/api/v1/moderationdeny", { id });
+    console.log(article);
+  }
+
   return (
     <>
       <table {...getTableProps()}>
@@ -45,6 +87,7 @@ const Table = ({ columns, data }) => {
                   </span>
                 </th>
               ))}
+              <th>Accept</th>
             </tr>
           ))}
         </thead>
@@ -58,6 +101,20 @@ const Table = ({ columns, data }) => {
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                   );
                 })}
+                <td>
+                  <button
+                    onClick={() => {
+                      moderationAccept(row.original._id);
+                    }}>
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => {
+                      moderationDeny(row.original._id);
+                    }}>
+                    Deny
+                  </button>
+                </td>
               </tr>
             );
           })}

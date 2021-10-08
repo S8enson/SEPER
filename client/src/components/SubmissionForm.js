@@ -75,7 +75,6 @@ const SubmissionForm = ({ onSubmit }) => {
       setText(e.target.result);
     };
     reader.readAsText(e.target.files[0]);
-    //setFile("");
   }
 
   return (

@@ -24,10 +24,9 @@ const ModerateArticle = () => {
         }
       })
       .then((jsonRes) => {
-        console.log(jsonRes);
         setArticles(jsonRes);
       });
-  }, []);
+  }, [articles]);
 
   return (
     <div>
