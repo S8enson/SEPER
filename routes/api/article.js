@@ -62,6 +62,16 @@ router.put("/moderationdeny", async (req, res) => {
   }
 });
 
+// Get submissions awaiting analysis
+router.get("/analysis", async (req, res) => {
+  try {
+    const article = await Article.find({ state: "2" });
+    res.json(article);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Get specific pratcice - search
 router.get("/:practice", async (req, res) => {
   try {
@@ -79,39 +89,33 @@ router.get("/:practice", async (req, res) => {
   }
 });
 
-// Get submissions awaiting analysis
-router.get("/analysis", async (req, res) => {
-  try {
-    const article = await Article.find({ state: "2" });
-    res.json(article);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
 // Submit Articles
-router.post("/submit", (req, res) => {
-  console.log(req.body);
-  Article.create(req.body)
-    .then((article) => {
-      res.json({ msg: "Article submitted successfully" });
-      const mailOptions = {
-        from: "seper.app.bot@gmail.com",
-        to: "qtn0334@autuni.ac.nz, dcm2548@autuni.ac.nz",
-        subject: "You have new articles to moderate in SEPER!",
-        text: "Someone has submitted an article to SEPER!",
-      };
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Moderator email sent: " + info.response);
-        }
-      });
-    })
-    .catch((err) =>
-      res.status(400).json({ error: "Unable to submit this article" })
-    );
+router.post("/submit", async (req, res) => {
+  const existingArticle = await Article.findOne({ doi: req.body.doi });
+  if (existingArticle && existingArticle.state === "4") {
+    res.status(400).json({ error: "Article has been previous denied" });
+  } else {
+    Article.create(req.body)
+      .then((article) => {
+        res.json({ msg: "Article submitted successfully" });
+        const mailOptions = {
+          from: "seper.app.bot@gmail.com",
+          to: "qtn0334@autuni.ac.nz, dcm2548@autuni.ac.nz",
+          subject: "You have new articles to moderate in SEPER!",
+          text: "Someone has submitted an article to SEPER!",
+        };
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Moderator email sent: " + info.response);
+          }
+        });
+      })
+      .catch((err) =>
+        res.status(400).json({ error: "Unable to submit this article" })
+      );
+  }
 });
 
 // Update
