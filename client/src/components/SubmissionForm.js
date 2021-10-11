@@ -16,7 +16,8 @@ const SubmissionForm = ({ onSubmit }) => {
   const state = "1";
   const [file, setFile] = useState("");
   const [text, setText] = useState("");
-  
+  const [response, setResponse] = useState("");
+
   const optionItems = SEPractices.map((SEPractice) => (
     <option key={SEPractice.practice}>{SEPractice.practice}</option>
   ));
@@ -33,10 +34,12 @@ const SubmissionForm = ({ onSubmit }) => {
         setPubyear("");
         setDoi("");
         setEmail("");
+        setResponse(res.data.msg ?? res.data.error);
         //this.props.history.push("/");
       })
-      .catch((err) => {
+      .catch((err, res) => {
         console.log(err);
+        setResponse(err);
       });
   }
 
@@ -46,6 +49,7 @@ const SubmissionForm = ({ onSubmit }) => {
     source,
     pubyear,
     doi,
+    email,
     practice,
     state,
   };
@@ -74,7 +78,6 @@ const SubmissionForm = ({ onSubmit }) => {
       setText(e.target.result);
     };
     reader.readAsText(e.target.files[0]);
-    //setFile("");
   }
 
   return (
@@ -165,19 +168,20 @@ const SubmissionForm = ({ onSubmit }) => {
         />
       </p>
       <p>
-      <select
-        id="practiceSelect"
-        value={practice}
-        onChange={(event) => setPractice(event.target.value)}
-        style={{ width: "208px" }}>
-        <option value="">Select an SE Practice </option>
-        {optionItems}
-      </select>
+        <select
+          id="practiceSelect"
+          value={practice}
+          onChange={(event) => setPractice(event.target.value)}
+          style={{ width: "208px" }}>
+          <option value="">Select an SE Practice </option>
+          {optionItems}
+        </select>
       </p>
 
       <p>
         <input type="submit" />
       </p>
+      <text>{response}</text>
     </form>
   );
 };

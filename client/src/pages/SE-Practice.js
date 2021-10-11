@@ -6,7 +6,9 @@ import SEPractices from "../dummydata/SEPractices.js";
 import DateFilter from "../components/DateFilter.js";
 
 const optionItems = SEPractices.map((SEPractice) => (
-  <option key={SEPractice.practice}>{SEPractice.practice}</option>
+  <option value={":" + SEPractice.practice} key={SEPractice.practice}>
+    {SEPractice.practice}
+  </option>
 ));
 
 const SEPractice = () => {
@@ -33,11 +35,11 @@ const SEPractice = () => {
     },
   ]);
   //const handleChange = event => setArticles(event.target.value);
-  const [query, setQuery] = useState("Test Driven Development");
+  const [query, setQuery] = useState("");
   useEffect(() => {
     var value = query;
     value = value.replaceAll(" ", "&");
-    value = "/api/v1/:" + value;
+    value = "/api/v1/" + value;
     console.log(value); // en
     fetch(value)
       .then(async (res) => {
@@ -46,6 +48,7 @@ const SEPractice = () => {
         }
       })
       .then((jsonRes) => {
+        console.log(jsonRes);
         setArticles(jsonRes);
         setFilteredArticles(jsonRes);
       });
@@ -67,9 +70,13 @@ const SEPractice = () => {
       <select
         id="practiceSelect"
         value={query}
+        defaultValue=""
         onChange={(event) => setQuery(event.target.value)}
         style={{ marginBottom: "5px" }}>
-        <option value="">Select an SE Practice </option>
+        <option hidden value="">
+          Select an SE Practice
+        </option>
+        <option value="">All</option>
         {optionItems}
       </select>
       <div>
