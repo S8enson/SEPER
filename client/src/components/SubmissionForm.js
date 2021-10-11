@@ -16,7 +16,6 @@ const SubmissionForm = ({ onSubmit }) => {
   const state = "1";
   const [file, setFile] = useState("");
   const [text, setText] = useState("");
-  const [response, setResponse] = useState("");
 
   const optionItems = SEPractices.map((SEPractice) => (
     <option key={SEPractice.practice}>{SEPractice.practice}</option>
@@ -34,12 +33,10 @@ const SubmissionForm = ({ onSubmit }) => {
         setPubyear("");
         setDoi("");
         setEmail("");
-        setResponse(res.data.msg ?? res.data.error);
         //this.props.history.push("/");
       })
       .catch((err, res) => {
         console.log(err);
-        setResponse(err);
       });
   }
 
@@ -181,7 +178,6 @@ const SubmissionForm = ({ onSubmit }) => {
       <p>
         <input type="submit" />
       </p>
-      <text>{response}</text>
     </form>
   );
 };
