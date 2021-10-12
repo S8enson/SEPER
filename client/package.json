@@ -1,6 +1,12 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ],
+    "plugins": []
+  },
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
@@ -54,9 +60,9 @@
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-react": "^7.14.5",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "react-test-renderer": "^17.0.2",
     "babel-jest": "26.6.0",
-    "jest": "26.6.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "jest": "26.6.0",
+    "react-test-renderer": "^17.0.2"
   }
 }

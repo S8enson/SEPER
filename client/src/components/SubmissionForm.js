@@ -33,7 +33,6 @@ const SubmissionForm = ({ onSubmit }) => {
         setPubyear("");
         setDoi("");
         setEmail("");
-        //this.props.history.push("/");
       })
       .catch((err, res) => {
         console.log(err);
